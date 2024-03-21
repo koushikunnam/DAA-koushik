@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define MAX_SIZE 100
+
+// Function to print subsets with the sum equal to target
+void subsetSum(int set[], int n, int target, int sum, int index, bool subset[]) {
+    if (sum == target) {
+        printf("Subset with sum equal to %d: { ", target);
+        for (int i = 0; i < n; i++) {
+            if (subset[i])
+                printf("%d ", set[i]);
+        }
+        printf("}\n");
+        return;
+    }
+
+    if (index == n || sum > target)
+        return;
+
+    // Include the current element in the subset
+    subset[index] = true;
+    subsetSum(set, n, target, sum + set[index], index + 1, subset);
+
+    // Exclude the current element from the subset
+    subset[index] = false;
+    subsetSum(set, n, target, sum, index + 1, subset);
+}
+
+int main() {
+    int set[] = {1, 3, 5, 7, 9};
+    int n = sizeof(set) / sizeof(set[0]);
+    int target = 10;
+    bool subset[MAX_SIZE] = {false};
+
+    printf("Subsets with sum equal to %d:\n", target);
+    subsetSum(set, n, target, 0, 0, subset);
+
+    return 0;
+}
