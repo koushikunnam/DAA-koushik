@@ -1,0 +1,29 @@
+#include <stdio.h>
+void findMinMax(int arr[], int size, int m, int n) {
+    int i, j, temp;
+    for (i = 0; i < size-1; i++) {
+        for (j = 0; j < size-i-1; j++) {
+            if (arr[j] > arr[j+1]) {
+                temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+    int mMax = arr[size - m];
+    int nMin = arr[n - 1];
+    printf("M-th maximum number: %d\n", mMax);
+    printf("N-th minimum number: %d\n", nMin);
+    int sum = mMax + nMin;
+    int difference = mMax - nMin;
+    printf("Sum: %d\n", sum);
+    printf("Difference: %d\n", difference);
+}
+int main() {
+    int arr[] = {5, 2, 9, 3, 7, 1, 8, 4, 6}; 
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int m = 3; 
+    int n = 2; 
+    findMinMax(arr, size, m, n);
+    return 0;
+}
